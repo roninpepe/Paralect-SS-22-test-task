@@ -1,0 +1,13 @@
+$c-primary: #000;
+$c-secondary: #808080;
+$c-tertiary: #fff;
+$c-accents: #0064eb;
+$bg-primary: #f9f9f9;
+$bg-secondary: #fff;
+$bg-accents: #0064eb;
+
+@mixin circle($d) {
+  border-radius: 50%;
+  height: $d;
+  width: $d;
+}
