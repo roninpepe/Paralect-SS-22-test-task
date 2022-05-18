@@ -1,0 +1,29 @@
+@import '../variables';
+
+@mixin i($c) {
+  fill: $c;
+
+  &_stroke {
+    stroke: $c;
+  }
+}
+
+.i_stroke {
+  fill: none;
+}
+
+body {
+  @include i($c-secondary);
+}
+
+.interactive:hover {
+  @include i($c-accents);
+}
+
+.contrast {
+  @include i($c-tertiary);
+
+  .interactive:hover {
+    @include i($c-secondary);
+  }
+}
