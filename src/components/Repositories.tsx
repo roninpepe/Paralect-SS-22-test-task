@@ -1,62 +1,65 @@
 import { FC, useEffect, useState } from 'react';
 import {
   IRepositoriesProps,
-  IRepositoriesAPIResponse,
+  IRepositoriesAPIRequestStatus,
 } from 'types/paralect-ss-22-test-task';
+import { nFormatter } from 'utils/utils';
+import { getRepositories } from 'api/repositories/get';
+import Loading from 'components/Stubs/Loading';
 import RepositoriesPagination from 'components/Repositories/Pagination';
 import NoRepositories from 'components/Stubs/NoRepositories';
-import Loading from 'components/Stubs/Loading';
-
-import repositoriesMockData from 'data/repositories.json';
-import { nFormatter } from 'utils/utils';
-
-const mock = {
-  status: true,
-  response: repositoriesMockData,
-};
 
 const Repositories: FC<IRepositoriesProps> = (props) => {
-  const { login } = props;
+  const { login: username } = props;
 
-  const [repositoriesAPIResponse, setRepositoriesAPIResponse] =
-    useState<IRepositoriesAPIResponse>();
+  const [repositoriesAPIRequestStatus, setRepositoriesAPIRequestStatus] =
+    useState<IRepositoriesAPIRequestStatus>({ pending: true, status: false });
 
   useEffect(() => {
-    setRepositoriesAPIResponse(mock);
-  }, [repositoriesAPIResponse]);
+    setRepositoriesAPIRequestStatus({ pending: true, status: false });
+    getRepositories(username).then(
+      (result) => {
+        setRepositoriesAPIRequestStatus({
+          pending: false,
+          status: result.status,
+          response: result.response,
+        });
+      },
+      () => {
+        setRepositoriesAPIRequestStatus({ pending: false, status: false });
+      }
+    );
+  }, [username]);
+  useEffect(() => {}, [repositoriesAPIRequestStatus]);
 
-  if (repositoriesAPIResponse?.response) {
-    const repositories = repositoriesAPIResponse.response;
-
-    if (repositories.length > 0) {
-      return (
-        <div className="user__repositories repositories">
-          <div className="repositories__header">
-            Repositories ({nFormatter(repositories.length)})
-          </div>
-          <RepositoriesPagination repositories={repositories} />
-        </div>
-      );
-    }
-
+  if (repositoriesAPIRequestStatus.pending) {
     return (
       <div className="user__repositories repositories">
-        <NoRepositories />
+        <Loading />;
       </div>
     );
   }
 
-  if (repositoriesAPIResponse?.status === false) {
+  if (
+    repositoriesAPIRequestStatus.status &&
+    repositoriesAPIRequestStatus.response &&
+    repositoriesAPIRequestStatus.response.length > 0
+  ) {
+    const repositories = repositoriesAPIRequestStatus.response;
+
     return (
       <div className="user__repositories repositories">
-        <NoRepositories />
+        <div className="repositories__header">
+          Repositories ({nFormatter(repositories.length)})
+        </div>
+        <RepositoriesPagination repositories={repositories} />
       </div>
     );
   }
 
   return (
     <div className="user__repositories repositories">
-      <Loading />;
+      <NoRepositories />
     </div>
   );
 };

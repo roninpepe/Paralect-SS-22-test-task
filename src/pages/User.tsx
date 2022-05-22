@@ -1,26 +1,44 @@
 import { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { IProfileAPIResponse } from 'types/paralect-ss-22-test-task';
+import { IProfileAPIRequestStatus } from 'types/paralect-ss-22-test-task';
+import { getProfile } from 'api/profile/get';
+import Loading from 'components/Stubs/Loading';
 import Profile from 'components/Profile';
 import Repositories from 'components/Repositories';
 import NoUser from 'components/Stubs/NoUser';
-import Loading from 'components/Stubs/Loading';
-
-import profileMockData from 'data/user.json';
-
-const mock = { status: true, response: profileMockData };
 
 const User: FC = () => {
   const { username } = useParams();
 
-  const [profileAPIResponse, setProfileAPIResponse] =
-    useState<IProfileAPIResponse>();
+  const [profileAPIRequestStatus, setProfileAPIRequestStatus] =
+    useState<IProfileAPIRequestStatus>({ pending: true, status: false });
 
   useEffect(() => {
-    setProfileAPIResponse(mock);
-  }, [profileAPIResponse]);
+    setProfileAPIRequestStatus({ pending: true, status: false });
+    getProfile(`${username}`).then(
+      (result) => {
+        setProfileAPIRequestStatus({
+          pending: false,
+          status: result.status,
+          response: result.response,
+        });
+      },
+      () => {
+        setProfileAPIRequestStatus({ pending: false, status: false });
+      }
+    );
+  }, [username]);
+  useEffect(() => {}, [profileAPIRequestStatus]);
 
-  if (profileAPIResponse?.response) {
+  if (profileAPIRequestStatus.pending) {
+    return (
+      <div className="app__page page app__user user">
+        <Loading />
+      </div>
+    );
+  }
+
+  if (profileAPIRequestStatus.status && profileAPIRequestStatus.response) {
     const {
       avatar_url: avatar,
       name,
@@ -28,7 +46,7 @@ const User: FC = () => {
       login,
       followers,
       following,
-    } = profileAPIResponse.response;
+    } = profileAPIRequestStatus.response;
 
     return (
       <div className="app__page page app__user user">
@@ -45,17 +63,9 @@ const User: FC = () => {
     );
   }
 
-  if (profileAPIResponse?.status === false) {
-    return (
-      <div className="app__page page app__user user">
-        <NoUser />
-      </div>
-    );
-  }
-
   return (
     <div className="app__page page app__user user">
-      <Loading />
+      <NoUser />
     </div>
   );
 };

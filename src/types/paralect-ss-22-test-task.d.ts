@@ -1,5 +1,8 @@
 interface IAPIResponse {
-  status?: boolean;
+  status: boolean;
+}
+interface IAPIRequestStatus extends IAPIResponse {
+  pending: boolean;
 }
 export interface IElementProps {
   className?: string;
@@ -32,6 +35,13 @@ export interface IProfileAPIResponse extends IAPIResponse {
 export interface IRepositoriesAPIResponse extends IAPIResponse {
   response?: IRepository[];
 }
+
+export interface IProfileAPIRequestStatus
+  extends IAPIRequestStatus,
+    IProfileAPIResponse {}
+export interface IRepositoriesAPIRequestStatus
+  extends IAPIRequestStatus,
+    IRepositoriesAPIResponse {}
 
 export interface IProfileProps extends IElementProps, IProfile {}
 export interface IRepositoryProps extends IElementProps, IRepository {}
