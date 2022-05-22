@@ -1,0 +1,46 @@
+.pagination {
+  font-size: 14px;
+  display: flex;
+  gap: 16px;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+
+  @include s {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  &__ {
+    &item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer;
+
+      &_disabled {
+        opacity: 0.8;
+        pointer-events: none;
+      }
+    }
+
+    &icon {
+      width: 24px;
+    }
+
+    &page-link,
+    &break-link {
+      line-height: 24px;
+      border-radius: 3px;
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      &_active {
+        padding: 0 6px;
+      }
+    }
+  }
+}

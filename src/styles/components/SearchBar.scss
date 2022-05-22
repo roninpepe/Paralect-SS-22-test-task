@@ -1,0 +1,17 @@
+.search-bar {
+  flex-basis: 500px;
+  flex-shrink: 1;
+  position: relative;
+  border-radius: 6px;
+
+  &__input {
+    padding-left: 44px;
+  }
+
+  .i {
+    height: 24px;
+    margin: 8px;
+    position: absolute;
+    pointer-events: none;
+  }
+}

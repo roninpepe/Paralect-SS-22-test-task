@@ -1,0 +1,24 @@
+.stub {
+  font-size: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-grow: 1;
+  transition: font-size 0.1s;
+
+  @include s {
+    font-size: 16px;
+  }
+
+  &__label {
+    max-width: 250px;
+    text-align: center;
+  }
+
+  .i {
+    height: 110px;
+    width: 110px;
+  }
+}

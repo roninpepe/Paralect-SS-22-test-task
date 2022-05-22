@@ -1,29 +1,38 @@
-@import '../variables';
-
 @mixin i($c) {
-  fill: $c;
+  .i {
+    fill: $c;
 
-  &_stroke {
-    stroke: $c;
+    &_stroke {
+      stroke: $c;
+    }
   }
 }
 
-.i_stroke {
-  fill: none;
-}
-
-body {
-  @include i($c-secondary);
-}
-
-.interactive:hover {
+._interactive:hover {
   @include i($c-accents);
 }
 
-.contrast {
+._prominent {
   @include i($c-tertiary);
 
-  .interactive:hover {
+  ._interactive:hover {
     @include i($c-secondary);
+  }
+}
+
+._bright {
+  @include i($c-secondary);
+}
+
+.i {
+  display: block;
+  transition-property: fill, stroke;
+  transition-duration: 0.1s;
+  user-select: none;
+  fill: $c-secondary;
+
+  &_stroke {
+    fill: none !important;
+    stroke: $c-secondary;
   }
 }

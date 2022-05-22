@@ -6,8 +6,36 @@ $bg-primary: #f9f9f9;
 $bg-secondary: #fff;
 $bg-accents: #0064eb;
 
+$regular: 400;
+$medium: 500;
+$semi-bold: 600;
+
+$screen-l: 1024px;
+$screen-s: 460px;
+
 @mixin circle($d) {
   border-radius: 50%;
   height: $d;
   width: $d;
+}
+
+@mixin linkHoveringDeclaration($class) {
+  &:hover {
+    text-decoration: none;
+
+    #{$class} {
+      text-decoration: underline;
+    }
+  }
+}
+
+@mixin l {
+  @media screen and (max-width: $screen-l) {
+    @content;
+  }
+}
+@mixin s {
+  @media screen and (max-width: $screen-s) {
+    @content;
+  }
 }

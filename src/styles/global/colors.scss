@@ -1,0 +1,49 @@
+@import 'styles/variables';
+
+body {
+  color: $c-primary;
+  background: $bg-primary;
+}
+
+a,
+.link {
+  color: $c-accents;
+}
+
+._secondary {
+  color: $c-secondary;
+}
+
+a,
+.link {
+  &:hover {
+    color: $c-accents;
+  }
+
+  &._prominent {
+    color: $c-tertiary;
+  }
+}
+
+._bright {
+  color: $c-primary;
+  background: $bg-secondary;
+
+  &:hover {
+    color: $c-primary;
+  }
+}
+
+._prominent {
+  color: $c-tertiary;
+  background: $bg-accents;
+}
+
+input {
+  color: $c-primary;
+  background: $bg-secondary;
+
+  &::placeholder {
+    color: $c-secondary;
+  }
+}

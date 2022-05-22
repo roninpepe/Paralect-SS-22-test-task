@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  gap: 21px;
+  padding: 16px 41px;
+  transition-property: padding, gap;
+  transition-duration: 0.1s;
+
+  @include s {
+    padding: 8px 8px;
+    gap: 8px;
+  }
+
+  &__logo .i {
+    height: 40px;
+  }
+}

@@ -1,0 +1,31 @@
+.repository {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 32px;
+  border-radius: 6px;
+
+  @include l {
+    padding: 20px 24px;
+  }
+
+  @include s {
+    gap: 12px;
+    padding: 16px 20px;
+  }
+
+  &__name {
+    font-size: 24px;
+    font-weight: $medium;
+
+    @include l {
+      font-size: 20px;
+    }
+
+    @include s {
+      font-size: 16px;
+    }
+  }
+
+  @include linkHoveringDeclaration('.repository__name');
+}

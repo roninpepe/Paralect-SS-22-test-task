@@ -1,0 +1,64 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 320px;
+  gap: 28px 12px;
+  padding-top: 12px;
+
+  @include l {
+    flex-direction: row;
+    flex-basis: auto;
+    padding: 0;
+  }
+
+  @include s {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__ {
+    &avatar-cont {
+      @include circle(260px);
+      flex-shrink: 0;
+
+      @include l {
+        @include circle(180px);
+      }
+
+      @include s {
+        @include circle(280px);
+        align-self: center;
+      }
+    }
+
+    &avatar {
+      @include circle(100%);
+    }
+
+    &name {
+      font-size: 26px;
+      font-weight: $semi-bold;
+    }
+
+    &login {
+      font-size: 18px;
+      margin: 12px 0 25px;
+    }
+
+    &statistics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+
+      &-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  }
+
+  .i {
+    height: 16px;
+  }
+}
